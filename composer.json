@@ -1,9 +1,9 @@
 {
-	"name": "rtconner/laravel-likeable",
-	"description": "Trait for Laravel Eloquent models to allow easy implementation of a 'like' or 'favorite' or 'remember' feature.",
+	"name": "racashmoney/laravel-blockable",
+	"description": "Trait for Laravel Eloquent models to allow easy implementation of a 'block' or 'ignore' feature.",
 	"license": "MIT",
-	"homepage": "https://smartersoftware.net/packages/laravel-likeable-favorite",
-	"keywords": ["trait", "laravel", "laravel5", "eloquent", "likeable", "likable", "like", "remember", "follow", "favorite", "favourite"],
+	"homepage": "https://github.com/racashmoney/laravel-blockable",
+	"keywords": ["trait", "laravel", "laravel5", "eloquent", "blockable", "ignore", "block",],
 	"authors": [
 		{
 			"name": "Robert Conner",
@@ -22,7 +22,7 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"Conner\\Likeable\\": "src/"
+			"Racashmoney\\Blockable\\": "src/"
 		}
 	},
 	"autoload-dev": {

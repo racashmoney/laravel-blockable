@@ -1,16 +1,16 @@
 <?php
 
-namespace Conner\Likeable;
+namespace Racashmoney\Blockable;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
-class LikeCounter extends Eloquent
+class BlockCounter extends Eloquent
 {
-	protected $table = 'likeable_like_counters';
+	protected $table = 'blockable_block_counters';
 	public $timestamps = false;
-	protected $fillable = ['likeable_id', 'likeable_type', 'count'];
+	protected $fillable = ['blockable_id', 'blockable_type', 'count'];
 	
-	public function likeable()
+	public function blockable()
 	{
 		return $this->morphTo();
 	}
@@ -26,10 +26,10 @@ class LikeCounter extends Eloquent
 			throw new \Exception('$modelClass cannot be empty/null. Maybe set the $morphClass variable on your model.');
 		}
 		
-		$builder = Like::query()
-			->select(\DB::raw('count(*) as count, likeable_type, likeable_id'))
-			->where('likeable_type', $modelClass)
-			->groupBy('likeable_id');
+		$builder = Block::query()
+			->select(\DB::raw('count(*) as count, blockable_type, blockable_id'))
+			->where('blockable_type', $modelClass)
+			->groupBy('blockable_id');
 		
 		$results = $builder->get();
 		

@@ -1,13 +1,13 @@
 <?php
 
-namespace Conner\Likeable;
+namespace Racashmoney\Blockable;
 
 use Illuminate\Support\ServiceProvider;
 
 /**
  * Copyright (C) 2015 Robert Conner
  */
-class LikeableServiceProvider extends ServiceProvider
+class BlockableServiceProvider extends ServiceProvider
 {
 	public function boot()
 	{

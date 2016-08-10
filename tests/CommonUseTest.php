@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
-use Conner\Likeable\Likeable;
-use Conner\Likeable\LikeCounter;
+use Racashmoney\Blockable\Blockable;
+use Racashmoney\Blockable\BlockCounter;
 
 class CommonUseTest extends TestCase
 {
@@ -39,65 +39,65 @@ class CommonUseTest extends TestCase
 		\Schema::drop('books');
 	}
 
-	public function test_basic_like()
+	public function test_basic_block()
 	{
 		$stub = Stub::create(['name'=>123]);
 		
-		$stub->like();
+		$stub->block();
 		
-		$this->assertEquals(1, $stub->likeCount);
+		$this->assertEquals(1, $stub->blockCount);
 	}
 	
-	public function test_multiple_likes()
+	public function test_multiple_blocks()
 	{
 		$stub = Stub::create(['name'=>123]);
 		
-		$stub->like(1);
-		$stub->like(2);
-		$stub->like(3);
-		$stub->like(4);
+		$stub->block(1);
+		$stub->block(2);
+		$stub->block(3);
+		$stub->block(4);
 		
-		$this->assertEquals(4, $stub->likeCount);
+		$this->assertEquals(4, $stub->blockCount);
 	}
 	
-	public function test_unlike()
+	public function test_unblock()
 	{
 		$stub = Stub::create(['name'=>123]);
 		
-		$stub->unlike(1);
+		$stub->unblock(1);
 		
-		$this->assertEquals(0, $stub->likeCount);
+		$this->assertEquals(0, $stub->blockCount);
 	}
 	
-	public function test_where_liked_by()
+	public function test_where_blocked_by()
 	{
-		Stub::create(['name'=>'A'])->like(1);
-		Stub::create(['name'=>'B'])->like(1);
-		Stub::create(['name'=>'C'])->like(1);
+		Stub::create(['name'=>'A'])->block(1);
+		Stub::create(['name'=>'B'])->block(1);
+		Stub::create(['name'=>'C'])->block(1);
 		
-		$stubs = Stub::whereLikedBy(1)->get();
-		$shouldBeEmpty = Stub::whereLikedBy(2)->get();
+		$stubs = Stub::whereBlockedBy(1)->get();
+		$shouldBeEmpty = Stub::whereBlockedBy(2)->get();
 		
 		$this->assertEquals(3, $stubs->count());
 		$this->assertEmpty($shouldBeEmpty);
 	}
 	
-	public function test_likes_get_deletes_with_record()
+	public function test_blocks_get_deletes_with_record()
 	{
 		$stub1 = Stub::create(['name'=>456]);
 		$stub2 = Stub::create(['name'=>123]);
 		
-		$stub1->like(1);
-		$stub1->like(7);
-		$stub1->like(8);
-		$stub2->like(1);
-		$stub2->like(2);
-		$stub2->like(3);
-		$stub2->like(4);
+		$stub1->block(1);
+		$stub1->block(7);
+		$stub1->block(8);
+		$stub2->block(1);
+		$stub2->block(2);
+		$stub2->block(3);
+		$stub2->block(4);
 		
 		$stub1->delete();
 		
-		$results = LikeCounter::all();
+		$results = BlockCounter::all();
 		$this->assertEquals(1, $results->count());
 	}
 	
@@ -106,26 +106,26 @@ class CommonUseTest extends TestCase
 		$stub1 = Stub::create(['name'=>456]);
 		$stub2 = Stub::create(['name'=>123]);
 		
-		$stub1->like(1);
-		$stub1->like(7);
-		$stub1->like(8);
-		$stub2->like(1);
-		$stub2->like(2);
-		$stub2->like(3);
-		$stub2->like(4);
+		$stub1->block(1);
+		$stub1->block(7);
+		$stub1->block(8);
+		$stub2->block(1);
+		$stub2->block(2);
+		$stub2->block(3);
+		$stub2->block(4);
 		
-		LikeCounter::truncate();
+		BlockCounter::truncate();
 		
-		LikeCounter::rebuild('Stub');
+		BlockCounter::rebuild('Stub');
 		
-		$results = LikeCounter::all();
+		$results = BlockCounter::all();
 		$this->assertEquals(2, $results->count());
 	}
 }
 
 class Stub extends Eloquent
 {
-	use Likeable;
+	use Blockable;
 	
 	protected $morphClass = 'Stub';
 	

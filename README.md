@@ -1,31 +1,29 @@
-Laravel Likeable Plugin
+Laravel Blockable Plugin
 ============
 
-Important Note: As of version 1.2 I renamed `Conner\Likeable\LikeableTrait` to `Conner\Likeable\Likeable`
 
-[![Build Status](https://travis-ci.org/rtconner/laravel-likeable.svg?branch=master)](https://travis-ci.org/rtconner/laravel-likeable)
-[![Latest Stable Version](https://poser.pugx.org/rtconner/laravel-likeable/v/stable.svg)](https://packagist.org/packages/rtconner/laravel-likeable)
-[![License](https://poser.pugx.org/rtconner/laravel-likeable/license.svg)](https://packagist.org/packages/rtconner/laravel-likeable)
+[![Build Status](https://travis-ci.org/rtconner/laravel-blockable.svg?branch=master)](https://travis-ci.org/rtconner/laravel-likeable)
+[![Latest Stable Version](https://poser.pugx.org/rtconner/laravel-blockable/v/stable.svg)](https://packagist.org/packages/rtconner/laravel-likeable)
+[![License](https://poser.pugx.org/rtconner/laravel-blockable/license.svg)](https://packagist.org/packages/rtconner/laravel-likeable)
 
-Trait for Laravel Eloquent models to allow easy implementation of a "like" or "favorite" or "remember" feature.
+Trait for Laravel Eloquent models to allow easy implementation of a "block" or "ignore" feature.
 
-[Laravel 5 Documentation](https://github.com/rtconner/laravel-likeable/tree/laravel-5)  
-[Laravel 4 Documentation](https://github.com/rtconner/laravel-likeable/tree/laravel-4)
+[Laravel 5 Documentation](https://github.com/racashmoney/laravel-blockable/tree/laravel-5)  
 
 #### Composer Install (for Laravel 5)
 
-	composer require rtconner/laravel-likeable "~1.2"
+	composer require racashmoney/laravel-blockable "~1.2"
 
 #### Install and then run the migrations
 
 ```php
 'providers' => [
-	\Conner\Likeable\LikeableServiceProvider::class,
+	\Racashmoney\Blockable\BlockableServiceProvider::class,
 ],
 ```
 
 ```bash
-php artisan vendor:publish --provider="Conner\Likeable\LikeableServiceProvider" --tag=migrations
+php artisan vendor:publish --provider="Racashmoney\Blockable\BlockableServiceProvider" --tag=migrations
 php artisan migrate
 ```
 
@@ -33,30 +31,30 @@ php artisan migrate
 
 ```php
 class Article extends \Illuminate\Database\Eloquent\Model {
-	use \Conner\Likeable\Likeable;
+	use \Racashmoney\Blockable\Blockable;
 }
 ```
 
 #### Sample Usage
 
 ```php
-$article->like(); // like the article for current user
-$article->like($myUserId); // pass in your own user id
-$article->like(0); // just add likes to the count, and don't track by user
+$article->block(); // block the article for current user
+$article->block($myUserId); // pass in your own user id
+$article->block(0); // just add blocks to the count, and don't track by user
 
-$article->unlike(); // remove like from the article
-$article->unlike($myUserId); // pass in your own user id
-$article->unlike(0); // remove likes from the count -- does not check for user
+$article->unblock(); // remove block from the article
+$article->unblock($myUserId); // pass in your own user id
+$article->unblock(0); // remove blocks from the count -- does not check for user
 
-$article->likeCount; // get count of likes
+$article->blockCount; // get count of blocks
 
-$article->likes; // Iterable Illuminate\Database\Eloquent\Collection of existing likes 
+$article->blocks; // Iterable Illuminate\Database\Eloquent\Collection of existing blocks 
 
-$article->liked(); // check if currently logged in user liked the article
-$article->liked($myUserId);
+$article->blocked(); // check if currently logged in user blocked the article
+$article->blocked($myUserId);
 
-Article::whereLikedBy($myUserId) // find only articles where user liked them
-	->with('likeCounter') // highly suggested to allow eager load
+Article::whereBlockedBy($myUserId) // find only articles where user blocked them
+	->with('blockCounter') // highly suggested to allow eager load
 	->get();
 ```
 

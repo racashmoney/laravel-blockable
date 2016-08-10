@@ -1,7 +1,7 @@
 <?php
 
 use Mockery as m;
-use Conner\Likeable\Likeable;
+use Racashmoney\Blockable\Blockable;
 
 class CounterTest extends PHPUnit_Framework_TestCase
 {
@@ -10,28 +10,28 @@ class CounterTest extends PHPUnit_Framework_TestCase
 		m::close();
 	}
 	
-	public function testLike()
+	public function testBlock()
 	{
-		$likeable = m::mock('LikeableStub[incrementLikeCount]');
-		$likeable->shouldReceive('incrementLikeCount')->andReturn(null);
+		$blockable = m::mock('BlockableStub[incrementBlockCount]');
+		$blockable->shouldReceive('incrementBlockCount')->andReturn(null);
 		
-		$likeable->like(0);
+		$blockable->block(0);
 	}
 	
-	public function testUnlike()
+	public function testUnblock()
 	{
-		$likeable = m::mock('LikeableStub[decrementLikeCount]');
-		$likeable->shouldReceive('decrementLikeCount')->andReturn(null);
+		$blockable = m::mock('BlockableStub[decrementBlockCount]');
+		$blockable->shouldReceive('decrementBlockCount')->andReturn(null);
 		
-		$likeable->unlike(0);
+		$blockable->unblock(0);
 	}
 	
 }
 
-class LikeableStub extends \Illuminate\Database\Eloquent\Model
+class BlockableStub extends \Illuminate\Database\Eloquent\Model
 {
-	use Likeable;
+	use Blockable;
 
-	public function incrementLikeCount() {}
-	public function decrementLikeCount() {}
+	public function incrementBlockCount() {}
+	public function decrementBlockCount() {}
 }

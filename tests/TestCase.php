@@ -1,12 +1,12 @@
 <?php
 
-use Conner\Likeable\LikeableServiceProvider;
+use Racashmoney\Blockable\BlockableServiceProvider;
 
 abstract class TestCase extends Orchestra\Testbench\TestCase
 {
 	protected function getPackageProviders($app)
 	{
-	    return [LikeableServiceProvider::class];
+	    return [BlockableServiceProvider::class];
 	}
 	
 	public function setUp()
