@@ -28,7 +28,7 @@ trait Blockable
 	public function scopeWhereBlockedBy($query, $userId=null)
 	{
 		if(is_null($userId)) {
-			$userId = $this->loggedInUserId();
+			$userId = $this->currLoggedInUserId();
 		}
 		
 		return $query->whereHas('blocks', function($q) use($userId) {
@@ -69,7 +69,7 @@ trait Blockable
 	public function block($userId=null)
 	{
 		if(is_null($userId)) {
-			$userId = $this->loggedInUserId();
+			$userId = $this->currLoggedInUserId();
 		}
 		
 		if($userId) {
@@ -94,7 +94,7 @@ trait Blockable
 	public function unblock($userId=null)
 	{
 		if(is_null($userId)) {
-			$userId = $this->loggedInUserId();
+			$userId = $this->currLoggedInUserId();
 		}
 		
 		if($userId) {
@@ -119,7 +119,7 @@ trait Blockable
 	public function blocked($userId=null)
 	{
 		if(is_null($userId)) {
-			$userId = $this->loggedInUserId();
+			$userId = $this->currLoggedInUserId();
 		}
 		
 		return (bool) $this->blocks()
@@ -165,7 +165,7 @@ trait Blockable
 	 * Fetch the primary ID of the currently logged in user
 	 * @return number
 	 */
-	public function loggedInUserId()
+	public function currLoggedInUserId()
 	{
 		return auth()->id();
 	}
