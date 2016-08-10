@@ -12,7 +12,7 @@ Trait for Laravel Eloquent models to allow easy implementation of a "block" or "
 
 #### Composer Install (for Laravel 5)
 
-	composer require racashmoney/laravel-blockable "~1.2"
+	composer require racashmoney/laravel-blockable "~2.0"
 
 #### Install and then run the migrations
 
