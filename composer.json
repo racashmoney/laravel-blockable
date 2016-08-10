@@ -3,7 +3,7 @@
 	"description": "Trait for Laravel Eloquent models to allow easy implementation of a 'block' or 'ignore' feature.",
 	"license": "MIT",
 	"homepage": "https://github.com/racashmoney/laravel-blockable",
-	"keywords": ["trait", "laravel", "laravel5", "eloquent", "blockable", "ignore", "block",],
+	"keywords": ["trait", "laravel", "laravel5", "eloquent", "blockable", "ignore", "block"],
 	"authors": [
 		{
 			"name": "Robert Conner",
