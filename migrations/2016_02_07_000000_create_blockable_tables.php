@@ -11,7 +11,7 @@ class CreateBlockableTables extends Migration
 			$table->increments('id');
 			$table->string('blockable_id', 36);
 			$table->string('blockable_type', 255);
-			$table->string('user_id', 36)->index();
+			$table->integer('user_id')->index();
 			$table->timestamps();
 			$table->unique(['blockable_id', 'blockable_type', 'user_id'], 'blockable_blocks_unique');
 		});
